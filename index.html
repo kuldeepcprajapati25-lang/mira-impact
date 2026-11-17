@@ -1,0 +1,894 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#071311">
+<meta name="description" content="MIRA IMPACT — Explore household electricity emissions and collective climate action in Mira-Bhayandar.">
+<title>MIRA / IMPACT — The Future Is Local</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg:#071311;
+  --bg2:#0b1d18;
+  --panel:#10251e;
+  --panel2:#142d24;
+  --lime:#d7ff73;
+  --green:#77e0a5;
+  --cyan:#71e5dc;
+  --white:#f2f8ef;
+  --muted:#9aada3;
+  --line:rgba(200,255,220,.14);
+  --mono:"DM Mono",monospace;
+  --font:"Manrope",sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:85px}
+body{
+  background:var(--bg);color:var(--white);
+  font-family:var(--font);overflow-x:hidden;
+}
+body:after{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:20;
+  opacity:.10;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.16'/%3E%3C/svg%3E");
+}
+a{color:inherit;text-decoration:none}
+button,input,select{font:inherit}
+button{cursor:pointer}
+::selection{background:var(--lime);color:#071311}
+.progress-top{position:fixed;z-index:100;top:0;left:0;height:3px;width:0;background:var(--lime);box-shadow:0 0 15px var(--lime)}
+#particles{position:fixed;inset:0;z-index:-1;pointer-events:none}
+.container{width:min(1180px,86%);margin:auto}
+.mono{font-family:var(--mono)}
+.eyebrow{
+  color:var(--lime);font:11px var(--mono);
+  letter-spacing:2px;text-transform:uppercase;
+}
+.muted{color:var(--muted)}
+nav{
+  height:76px;padding:0 7%;position:sticky;top:0;z-index:80;
+  display:flex;align-items:center;justify-content:space-between;
+  background:rgba(7,19,17,.86);backdrop-filter:blur(18px);
+  border-bottom:1px solid var(--line);
+}
+.logo{font-size:17px;font-weight:800;letter-spacing:2px}
+.logo b{color:var(--lime)}
+.navlinks{display:flex;align-items:center;gap:28px}
+.navlinks a{font-size:11px;color:var(--muted);transition:.25s}
+.navlinks a:hover,.navlinks a.active{color:var(--lime)}
+.menu-btn{display:none;background:none;border:0;color:white;font-size:25px}
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  border:1px solid var(--lime);background:var(--lime);color:#102018;
+  padding:14px 21px;font-size:11px;font-weight:800;
+  transition:.3s;
+}
+.btn:hover{transform:translateY(-4px);box-shadow:0 12px 35px #d7ff7330}
+.btn.secondary{background:transparent;color:var(--white);border-color:var(--line)}
+.btn.secondary:hover{border-color:var(--lime);color:var(--lime)}
+section{padding:115px 0;position:relative}
+.hero{
+  min-height:690px;display:grid;grid-template-columns:1fr 1fr;
+  align-items:center;gap:30px;padding-top:85px;padding-bottom:90px;
+  overflow:hidden;
+}
+.hero:before{
+  content:"";position:absolute;width:700px;height:700px;
+  right:-200px;top:-100px;border-radius:50%;
+  background:radial-gradient(circle,#1d644633,transparent 70%);
+}
+.hero h1{
+  font-size:clamp(58px,8vw,105px);line-height:.94;
+  letter-spacing:-7px;margin:25px 0 30px;
+}
+.hero h1 span{color:var(--lime)}
+.hero-copy{font-size:14px;line-height:1.9;color:var(--muted);max-width:470px}
+.hero-actions{display:flex;gap:13px;flex-wrap:wrap;margin-top:30px}
+.hero-note{margin-top:28px;font:10px var(--mono);color:var(--muted)}
+.visual-stage{
+  height:510px;display:grid;place-items:center;
+  position:relative;perspective:1000px;
+}
+.city-scene{
+  width:min(430px,90%);aspect-ratio:1;
+  position:relative;transform-style:preserve-3d;
+  transition:transform .16s ease-out;
+  animation:sceneFloat 7s ease-in-out infinite;
+}
+.city-core{
+  position:absolute;inset:13%;border-radius:50%;
+  background:
+    radial-gradient(ellipse at 35% 25%,#c4ffb1 0 4%,transparent 22%),
+    radial-gradient(ellipse at 65% 60%,#8be49b 0 10%,transparent 32%),
+    radial-gradient(ellipse at 40% 60%,#1b8757 0 20%,transparent 52%),
+    linear-gradient(145deg,#8bdc9a,#1b6041 50%,#09271e);
+  box-shadow:inset -40px -35px 60px #04120c,0 0 80px #7dffad25;
+  transform:rotateX(15deg);
+  overflow:hidden;
+}
+.city-core:before{
+  content:"";position:absolute;inset:15%;
+  background:repeating-linear-gradient(115deg,transparent 0 18px,#d7ff7322 19px 20px);
+  border-radius:50%;transform:rotate(20deg);
+}
+.city-core:after{
+  content:"";position:absolute;left:0;right:0;top:55%;height:1px;
+  background:#e4ffd799;box-shadow:0 0 20px #d7ff73;
+}
+.city-grid{
+  position:absolute;inset:0;
+  background:repeating-linear-gradient(0deg,transparent 0 29px,#d7ff7318 30px 31px),
+             repeating-linear-gradient(90deg,transparent 0 29px,#d7ff7318 30px 31px);
+  mask-image:radial-gradient(circle,black 0 50%,transparent 72%);
+}
+.tower{
+  position:absolute;bottom:33%;width:8%;height:25%;
+  background:linear-gradient(90deg,#153d2c,#caff91);
+  border:1px solid #e4ffd877;box-shadow:0 0 14px #b7ff7255;
+  transform:translateZ(35px);
+}
+.tower:before{
+  content:"";position:absolute;inset:7px 3px;
+  background:repeating-linear-gradient(0deg,#efffbb 0 2px,transparent 3px 9px);
+  opacity:.65;
+}
+.t1{left:29%;height:29%}
+.t2{left:42%;height:40%;width:10%}
+.t3{left:57%;height:23%;width:8%}
+.t4{left:70%;height:17%;width:7%}
+.tree{
+  position:absolute;bottom:32%;width:15px;height:30px;
+  border-radius:50% 50% 20% 20%;background:#d7ff73;
+  box-shadow:0 0 15px #d7ff7388;
+}
+.tr1{left:20%}.tr2{left:78%;bottom:38%}
+.orbit{
+  position:absolute;inset:2%;border:1px solid #b4ff7d66;
+  border-radius:50%;transform:rotateX(67deg) rotateZ(-25deg);
+}
+.orbit.o2{inset:-5%;transform:rotateX(70deg) rotateZ(45deg);border-color:#70e6dc66}
+.orbit.o3{inset:10%;transform:rotateY(67deg) rotateZ(20deg);border-style:dashed}
+.orbit-dot{
+  position:absolute;width:12px;height:12px;border-radius:50%;
+  background:var(--lime);box-shadow:0 0 20px var(--lime);
+  top:10%;left:20%;
+}
+.float-card{
+  position:absolute;padding:13px 16px;background:#10271fdd;
+  border:1px solid #d7ff7355;backdrop-filter:blur(12px);
+  color:var(--lime);font:10px var(--mono);letter-spacing:1px;
+  box-shadow:0 10px 35px #0005;
+  animation:cardFloat 5s ease-in-out infinite;
+}
+.float-card.fc1{top:50px;right:-5px}
+.float-card.fc2{bottom:65px;left:-10px;animation-delay:1.3s}
+@keyframes sceneFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-13px)}}
+@keyframes cardFloat{0%,100%{translate:0 0}50%{translate:0 -12px}}
+.ticker{border-block:1px solid var(--line);overflow:hidden;padding:19px 0;white-space:nowrap}
+.ticker-track{width:max-content;animation:marquee 32s linear infinite;color:var(--lime);font:11px var(--mono);letter-spacing:3px}
+@keyframes marquee{to{transform:translateX(-50%)}}
+.section-head{display:grid;grid-template-columns:.7fr 1.3fr;gap:40px;align-items:start;margin-bottom:50px}
+h2{font-size:clamp(39px,5.5vw,70px);letter-spacing:-4px;line-height:1.05;margin:20px 0}
+h2 em{color:var(--lime);font-style:normal}
+.lead{font-size:14px;line-height:1.9;color:var(--muted);max-width:650px}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.card{
+  min-height:285px;padding:28px;position:relative;overflow:hidden;
+  background:linear-gradient(145deg,#132b22,#0b1b16);
+  border:1px solid var(--line);transition:.35s;
+}
+.card:hover{transform:translateY(-9px);border-color:#d7ff7380}
+.card-num{font:11px var(--mono);color:var(--lime)}
+.card-icon{font-size:43px;margin:43px 0 20px;color:var(--lime)}
+.card h3{font-size:22px;margin-bottom:12px}
+.card p{font-size:12px;line-height:1.8;color:var(--muted)}
+.card:after{
+  content:"";position:absolute;width:130px;height:130px;border-radius:50%;
+  right:-70px;bottom:-70px;background:#b8ff6b10;
+}
+.dark-section{background:linear-gradient(180deg,#0b1b16,#091713)}
+.calculator-grid{display:grid;grid-template-columns:1fr 1fr;gap:15px}
+.panel{padding:32px;background:#10241d;border:1px solid var(--line)}
+.panel-title{font:11px var(--mono);letter-spacing:2px;color:var(--lime)}
+.field{margin-top:28px}
+.field label{display:flex;justify-content:space-between;gap:10px;font-size:12px;margin-bottom:12px}
+.field strong{color:var(--lime);font-family:var(--mono)}
+input[type=range]{width:100%;accent-color:var(--lime);cursor:pointer}
+select,input[type=number]{
+  width:100%;padding:13px;background:#081712;color:white;
+  border:1px solid var(--line);outline:none;
+}
+.result-panel{background:linear-gradient(145deg,#1b4935,#0d2119)}
+.result-number{font-size:clamp(55px,7vw,85px);letter-spacing:-6px;color:var(--lime);margin:35px 0 8px}
+.result-unit{font:11px var(--mono);color:var(--muted)}
+.result-stats{display:grid;grid-template-columns:1fr 1fr;gap:20px;border-top:1px solid #ffffff22;margin-top:30px;padding-top:25px}
+.result-stats small{display:block;font:10px var(--mono);color:#b6c9bd}
+.result-stats strong{display:block;font-size:20px;margin-top:8px}
+.note{font-size:10px;line-height:1.8;color:var(--muted);margin-top:25px}
+.community-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:15px}
+.community-number{
+  background:var(--lime);color:#0c1a12;padding:38px;
+  display:flex;flex-direction:column;justify-content:space-between;min-height:350px;
+}
+.community-number strong{font-size:clamp(60px,8vw,100px);letter-spacing:-8px}
+.community-number p{font:11px var(--mono)}
+.chart-panel{padding:30px;background:var(--panel);border:1px solid var(--line)}
+canvas.chart{width:100%;height:240px;display:block}
+.community-form{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:20px}
+.community-form label{font-size:11px;color:var(--muted)}
+.community-form input{margin-top:8px}
+.missions-grid{display:grid;grid-template-columns:.7fr 1.3fr;gap:35px}
+.progress-ring{
+  width:180px;height:180px;border-radius:50%;display:grid;place-items:center;
+  background:conic-gradient(var(--lime) 0deg,#284237 0deg);
+  position:relative;margin:30px 0;
+}
+.progress-ring:before{content:"";position:absolute;inset:9px;border-radius:50%;background:#10241d}
+.progress-ring div{z-index:1;text-align:center}
+.progress-ring strong{font-size:34px;display:block}
+.progress-ring small{font:10px var(--mono);color:var(--lime)}
+.mission-list{display:grid;gap:10px}
+.mission{
+  display:flex;gap:15px;align-items:center;padding:19px;
+  background:var(--panel);border:1px solid var(--line);cursor:pointer;
+  transition:.25s;
+}
+.mission:hover{border-color:var(--lime)}
+.mission input{width:18px;height:18px;accent-color:var(--lime)}
+.mission span{font-size:12px}
+.mission small{display:block;color:var(--muted);font-size:10px;margin-top:5px}
+.mission.done span{text-decoration:line-through;color:var(--muted)}
+.source-card{padding:28px;border:1px solid var(--line);background:var(--panel)}
+.source-card a{color:var(--lime);text-decoration:underline;font-size:12px}
+.footer{padding:38px 7%;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.footer p{font-size:10px;color:var(--muted)}
+.reveal{opacity:0;transform:translateY(35px);transition:opacity .8s,transform .8s}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.toast{
+  position:fixed;z-index:120;bottom:25px;left:50%;transform:translate(-50%,20px);
+  background:var(--lime);color:#102018;padding:13px 20px;font-size:12px;
+  font-weight:800;opacity:0;transition:.3s;pointer-events:none;
+}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+.cursor-glow{
+  position:fixed;width:250px;height:250px;pointer-events:none;z-index:-1;
+  border-radius:50%;background:radial-gradient(circle,#9bff6b12,transparent 70%);
+  transform:translate(-50%,-50%);
+}
+@media(max-width:850px){
+  .container{width:90%}
+  nav{padding:0 5%}
+  .navlinks{
+    display:none;position:absolute;top:76px;left:0;right:0;
+    padding:25px;background:#091713;flex-direction:column;align-items:flex-start;
+  }
+  .navlinks.open{display:flex}
+  .menu-btn{display:block}
+  nav>.btn{display:none}
+  .hero{grid-template-columns:1fr;padding-top:75px}
+  .visual-stage{height:420px}
+  .section-head,.calculator-grid,.community-grid,.missions-grid{grid-template-columns:1fr}
+  .cards{grid-template-columns:1fr}
+}
+@media(max-width:520px){
+  section{padding:80px 0}
+  .hero h1{letter-spacing:-4px}
+  h2{letter-spacing:-2px}
+  .visual-stage{height:340px}
+  .float-card{font-size:8px}
+  .panel{padding:22px}
+  .community-form{grid-template-columns:1fr}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+  .reveal{opacity:1;transform:none}
+}
+</style>
+</head>
+
+<body>
+<div class="progress-top" id="topProgress"></div>
+<div class="cursor-glow" id="cursorGlow"></div>
+<canvas id="particles"></canvas>
+
+<nav>
+  <a class="logo" href="#home">MIRA<b>/</b>IMPACT</a>
+  <button class="menu-btn" id="menuBtn" aria-label="Open menu">☰</button>
+  <div class="navlinks" id="navLinks">
+    <a href="#home">Home</a>
+    <a href="#problem">The Problem</a>
+    <a href="#calculator">Footprint Lab</a>
+    <a href="#collective">Collective</a>
+    <a href="#missions">Actions</a>
+    <a href="#sources">Sources</a>
+  </div>
+  <a class="btn" href="#calculator">Explore Impact ↗</a>
+</nav>
+
+<main>
+<!-- HERO -->
+<section class="hero container" id="home">
+  <div class="reveal">
+    <p class="eyebrow">PROBLEM STATEMENT 08 / MIRA-BHAYANDAR</p>
+    <h1>The future<br>is <span>local.</span></h1>
+    <p class="hero-copy">
+      One home. One journey. One neighbourhood.
+      Every daily choice adds to our collective footprint.
+      Discover the impact, understand the data and help
+      imagine a more sustainable Mira-Bhayandar.
+    </p>
+    <div class="hero-actions">
+      <a class="btn" href="#calculator">Calculate your footprint ↗</a>
+      <a class="btn secondary" href="#problem">Explore the mission ↓</a>
+    </div>
+    <p class="hero-note">A DIGITAL SUSTAINABILITY EXPERIENCE / 2026</p>
+  </div>
+
+  <div class="visual-stage reveal" id="visualStage">
+    <div class="city-scene" id="cityScene">
+      <div class="orbit"><span class="orbit-dot"></span></div>
+      <div class="orbit o2"></div>
+      <div class="orbit o3"></div>
+      <div class="city-core">
+        <div class="city-grid"></div>
+        <div class="tower t1"></div><div class="tower t2"></div>
+        <div class="tower t3"></div><div class="tower t4"></div>
+        <div class="tree tr1"></div><div class="tree tr2"></div>
+      </div>
+    </div>
+    <div class="float-card fc1">✳ CLEANER ENERGY / BETTER FUTURE</div>
+    <div class="float-card fc2">MIRA-BHAYANDAR / 19°17'N</div>
+  </div>
+</section>
+
+<div class="ticker">
+  <div class="ticker-track">
+    ENERGY AWARENESS ✳ RESPONSIBLE MOBILITY ✳ LESS WASTE ✳ COLLECTIVE ACTION ✳
+    ENERGY AWARENESS ✳ RESPONSIBLE MOBILITY ✳ LESS WASTE ✳ COLLECTIVE ACTION ✳
+  </div>
+</div>
+
+<!-- PROBLEM -->
+<section id="problem">
+  <div class="container">
+    <div class="section-head">
+      <p class="eyebrow reveal">01 / THE CHALLENGE</p>
+      <div class="reveal">
+        <h2>A city-wide problem.<br><em>An everyday solution.</em></h2>
+        <p class="lead">
+          Residents may know that climate change is happening,
+          but often cannot see how electricity consumption,
+          transportation and waste contribute to the larger
+          environmental footprint of their neighbourhood.
+          MIRA/IMPACT makes those connections easier to explore.
+        </p>
+      </div>
+    </div>
+
+    <div class="cards">
+      <article class="card reveal">
+        <span class="card-num">01 / ELECTRICITY</span>
+        <div class="card-icon">ϟ</div>
+        <h3>Energy at home</h3>
+        <p>Understand how household electricity use relates to emissions from the Indian power grid.</p>
+      </article>
+      <article class="card reveal">
+        <span class="card-num">02 / TRANSPORT</span>
+        <div class="card-icon">↗</div>
+        <h3>Movement matters</h3>
+        <p>Explore how travel choices affect the environment. Use verified local transport data before making precise calculations.</p>
+      </article>
+      <article class="card reveal">
+        <span class="card-num">03 / WASTE</span>
+        <div class="card-icon">◉</div>
+        <h3>Waste less</h3>
+        <p>Discover waste reduction, segregation, reuse and recycling practices for everyday life.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- CALCULATOR -->
+<section class="dark-section" id="calculator">
+  <div class="container">
+    <div class="section-head">
+      <p class="eyebrow reveal">02 / PERSONAL FOOTPRINT LAB</p>
+      <div class="reveal">
+        <h2>Make your impact<br><em>visible.</em></h2>
+        <p class="lead">Estimate your household's monthly electricity-related CO₂ emissions using the published India grid factor. Change the inputs and see the calculation update instantly.</p>
+      </div>
+    </div>
+
+    <div class="calculator-grid">
+      <div class="panel reveal">
+        <p class="panel-title">YOUR HOUSEHOLD INPUT</p>
+        <div class="field">
+          <label for="units">Monthly electricity use <strong id="unitsLabel">180 kWh</strong></label>
+          <input type="range" id="units" min="0" max="1500" step="10" value="180">
+        </div>
+        <div class="field">
+          <label for="members">Household members</label>
+          <select id="members">
+            <option value="1">1 person</option>
+            <option value="2">2 people</option>
+            <option value="3" selected>3 people</option>
+            <option value="4">4 people</option>
+            <option value="5">5 people</option>
+            <option value="6">6 or more people</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="factor">Grid emission factor</label>
+          <input id="factor" type="number" value="0.675" min="0" max="5" step="0.001">
+          <p class="note">Default: 0.675 kg CO₂/kWh, CEA Version 22.0, FY 2025–26. The field is editable for testing other assumptions.</p>
+        </div>
+        <button class="btn" id="saveEstimate" style="margin-top:25px">Save my estimate ↗</button>
+        <p class="note" id="saveStatus">Your estimate is stored locally in this browser only.</p>
+      </div>
+
+      <div class="panel result-panel reveal">
+        <p class="panel-title">ESTIMATED MONTHLY EMISSIONS</p>
+        <div class="result-number" id="monthlyResult">121.5</div>
+        <p class="result-unit">KG CO₂ / HOUSEHOLD / MONTH</p>
+        <div class="result-stats">
+          <div>
+            <small>PER PERSON / MONTH</small>
+            <strong id="personResult">40.5 kg</strong>
+          </div>
+          <div>
+            <small>ANNUALIZED / HOME</small>
+            <strong id="annualResult">1.46 t</strong>
+          </div>
+        </div>
+        <p class="note">Formula: monthly kWh × grid factor. This is an electricity estimate, not a complete personal carbon footprint. It represents CO₂, not all greenhouse gases.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COLLECTIVE -->
+<section id="collective">
+  <div class="container">
+    <div class="section-head">
+      <p class="eyebrow reveal">03 / COLLECTIVE SCENARIO</p>
+      <div class="reveal">
+        <h2>Small numbers<br><em>add up.</em></h2>
+        <p class="lead">Explore how household electricity emissions scale across a neighbourhood. Enter a hypothetical number of homes and average monthly electricity use. This is a scenario model—not measured Mira-Bhayandar community data.</p>
+      </div>
+    </div>
+
+    <div class="community-grid">
+      <div class="community-number reveal">
+        <p>SCENARIO / MONTHLY EMISSIONS</p>
+        <strong id="communityTotal">12.15</strong>
+        <p>TONNES CO₂ / MONTH</p>
+        <p style="font-size:10px;opacity:.7">Based on your inputs below</p>
+      </div>
+      <div class="chart-panel reveal">
+        <p class="panel-title">NEIGHBOURHOOD SCENARIO VISUAL</p>
+        <canvas class="chart" id="communityChart" aria-label="Community emissions scenario chart"></canvas>
+        <div class="community-form">
+          <label>Number of homes
+            <input id="homes" type="number" min="1" max="1000000" value="100">
+          </label>
+          <label>Average kWh / home / month
+            <input id="averageKwh" type="number" min="0" max="10000" value="180">
+          </label>
+        </div>
+        <p class="note">The chart visualizes your entered scenario using the same CEA grid factor. It is not a census, survey, municipal inventory or official emissions report.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ACTIONS -->
+<section class="dark-section" id="missions">
+  <div class="container">
+    <div class="section-head">
+      <p class="eyebrow reveal">04 / THE ACTION MAP</p>
+      <div class="reveal">
+        <h2>Turn awareness<br><em>into action.</em></h2>
+        <p class="lead">Choose practical sustainability habits and track your progress. Your checklist is saved on your own device.</p>
+      </div>
+    </div>
+
+    <div class="missions-grid">
+      <div class="panel reveal">
+        <p class="panel-title">YOUR PERSONAL PROGRESS</p>
+        <div class="progress-ring" id="progressRing">
+          <div><strong id="missionCount">0/6</strong><small>COMPLETED</small></div>
+        </div>
+        <p class="note" id="missionMessage">Start with one small action. Consistency matters.</p>
+        <button class="btn secondary" id="resetMissions" style="margin-top:25px">Reset progress ↺</button>
+      </div>
+
+      <div class="mission-list reveal">
+        <label class="mission"><input type="checkbox" data-mission="energy"><span>Switch off unused lights and appliances<small>Reduce unnecessary electricity use.</small></span></label>
+        <label class="mission"><input type="checkbox" data-mission="cooling"><span>Use cooling appliances thoughtfully<small>Choose efficient settings and maintain equipment.</small></span></label>
+        <label class="mission"><input type="checkbox" data-mission="travel"><span>Try a lower-impact journey<small>Walk, cycle or use public transport when practical.</small></span></label>
+        <label class="mission"><input type="checkbox" data-mission="segregation"><span>Separate wet and dry waste<small>Follow the local municipal collection rules.</small></span></label>
+        <label class="mission"><input type="checkbox" data-mission="reuse"><span>Choose reusable items<small>Carry a reusable bag and water bottle.</small></span></label>
+        <label class="mission"><input type="checkbox" data-mission="repair"><span>Repair and reuse before replacing<small>Extend the life of everyday products.</small></span></label>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOURCES -->
+<section id="sources">
+  <div class="container">
+    <div class="section-head">
+      <p class="eyebrow reveal">05 / TRANSPARENCY & SOURCES</p>
+      <div class="reveal">
+        <h2>Good decisions<br>need <em>good data.</em></h2>
+        <p class="lead">The project distinguishes published reference data from locally measured information and illustrative scenarios.</p>
+      </div>
+    </div>
+    <div class="source-card reveal">
+      <p class="panel-title">ELECTRICITY EMISSION FACTOR / INDIA</p>
+      <h2 style="margin:18px 0">0.675 <em>kg CO₂/kWh</em></h2>
+      <p class="lead">Converted from 0.675 tonnes CO₂ per MWh, the weighted average grid emission factor listed in the Central Electricity Authority's CO₂ Baseline Database Version 22.0 for FY 2025–26.</p>
+      <br>
+      <a href="https://cea.nic.in/cdm-co2-baseline-database/" target="_blank" rel="noopener noreferrer">Central Electricity Authority — CO₂ Baseline Database ↗</a>
+      <p class="note">Check the latest CEA database before using this value for formal reporting. This website is an independent educational project, not an official CEA or Mira-Bhayandar Municipal Corporation platform. Transport and waste estimates are not calculated here because verified, locally appropriate factors have not been supplied.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container reveal">
+    <p class="eyebrow">THE MIRA / IMPACT VISION</p>
+    <h2>A sustainable city<br>is a <em>shared creation.</em></h2>
+    <p class="lead">Measure what is known. Be honest about what is not. Make the next responsible choice.</p>
+    <br><br>
+    <a class="btn" href="#home">Return to the beginning ↑</a>
+  </div>
+</section>
+</main>
+
+<footer class="footer">
+  <a class="logo" href="#home">MIRA<b>/</b>IMPACT</a>
+  <p>Problem Statement 08 · Mira-Bhayandar</p>
+  <p>Independent educational prototype · 2026</p>
+</footer>
+
+<div class="toast" id="toast">Saved successfully</div>
+
+<script>
+/* =========================================
+   MIRA / IMPACT — INTERACTION ENGINE
+   ========================================= */
+
+// Mobile menu
+const menuBtn = document.getElementById("menuBtn");
+const navLinks = document.getElementById("navLinks");
+
+menuBtn.addEventListener("click", () => {
+  navLinks.classList.toggle("open");
+  menuBtn.textContent = navLinks.classList.contains("open") ? "×" : "☰";
+});
+
+navLinks.querySelectorAll("a").forEach(link => {
+  link.addEventListener("click", () => {
+    navLinks.classList.remove("open");
+    menuBtn.textContent = "☰";
+  });
+});
+
+// Reading progress
+window.addEventListener("scroll", () => {
+  const max = document.documentElement.scrollHeight - innerHeight;
+  const percent = max > 0 ? scrollY / max * 100 : 0;
+  document.getElementById("topProgress").style.width = percent + "%";
+});
+
+// Scroll reveal
+const revealObserver = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add("visible");
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, {threshold: 0.12});
+
+document.querySelectorAll(".reveal").forEach(element => {
+  revealObserver.observe(element);
+});
+
+// Active navigation
+const sectionObserver = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const id = entry.target.id;
+      navLinks.querySelectorAll("a").forEach(a => {
+        a.classList.toggle("active", a.getAttribute("href") === "#" + id);
+      });
+    }
+  });
+}, {rootMargin: "-35% 0px -55% 0px"});
+
+document.querySelectorAll("main section[id]").forEach(section => {
+  sectionObserver.observe(section);
+});
+
+// Mouse / touch gesture for 3D city
+const stage = document.getElementById("visualStage");
+const cityScene = document.getElementById("cityScene");
+
+function moveCity(x, y) {
+  const rect = stage.getBoundingClientRect();
+  const px = (x - rect.left) / rect.width;
+  const py = (y - rect.top) / rect.height;
+  const rotateY = (px - 0.5) * 25;
+  const rotateX = (0.5 - py) * 20;
+  cityScene.style.transform =
+    `rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(10px)`;
+}
+
+stage.addEventListener("pointermove", e => moveCity(e.clientX, e.clientY));
+stage.addEventListener("pointerleave", () => {
+  cityScene.style.transform = "";
+});
+
+// Cursor glow
+const glow = document.getElementById("cursorGlow");
+window.addEventListener("pointermove", e => {
+  glow.style.left = e.clientX + "px";
+  glow.style.top = e.clientY + "px";
+});
+
+// 2D animated particle background
+const particleCanvas = document.getElementById("particles");
+const ctx = particleCanvas.getContext("2d");
+let particles = [];
+let canvasWidth = 0;
+let canvasHeight = 0;
+
+function resizeCanvas() {
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+  canvasWidth = innerWidth;
+  canvasHeight = innerHeight;
+  particleCanvas.width = canvasWidth * dpr;
+  particleCanvas.height = canvasHeight * dpr;
+  particleCanvas.style.width = canvasWidth + "px";
+  particleCanvas.style.height = canvasHeight + "px";
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+  particles = Array.from({length: Math.min(65, Math.floor(innerWidth / 18))}, () => ({
+    x: Math.random() * canvasWidth,
+    y: Math.random() * canvasHeight,
+    r: Math.random() * 1.8 + .4,
+    speed: Math.random() * .35 + .08,
+    alpha: Math.random() * .5 + .15
+  }));
+}
+resizeCanvas();
+window.addEventListener("resize", resizeCanvas);
+
+let frame = 0;
+function animateParticles() {
+  ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+  particles.forEach((p, i) => {
+    p.y -= p.speed;
+    p.x += Math.sin(frame * .008 + i) * .13;
+    if (p.y < -5) {
+      p.y = canvasHeight + 5;
+      p.x = Math.random() * canvasWidth;
+    }
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(180,255,180,${p.alpha})`;
+    ctx.fill();
+  });
+  frame++;
+  requestAnimationFrame(animateParticles);
+}
+if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+  animateParticles();
+}
+
+// Toast message
+function toast(message) {
+  const el = document.getElementById("toast");
+  el.textContent = message;
+  el.classList.add("show");
+  clearTimeout(window.toastTimer);
+  window.toastTimer = setTimeout(() => el.classList.remove("show"), 2300);
+}
+
+// Personal electricity calculator
+const unitsInput = document.getElementById("units");
+const membersInput = document.getElementById("members");
+const factorInput = document.getElementById("factor");
+let currentEstimate = {};
+
+function calculateFootprint() {
+  const units = Math.max(0, Number(unitsInput.value) || 0);
+  const members = Math.max(1, Number(membersInput.value) || 1);
+  const factor = Math.max(0, Number(factorInput.value) || 0);
+  const monthly = units * factor;
+
+  currentEstimate = {units, members, factor, monthly};
+
+  document.getElementById("unitsLabel").textContent = units + " kWh";
+  document.getElementById("monthlyResult").textContent = monthly.toFixed(1);
+  document.getElementById("personResult").textContent =
+    (monthly / members).toFixed(1) + " kg";
+  document.getElementById("annualResult").textContent =
+    (monthly * 12 / 1000).toFixed(2) + " t";
+}
+
+[unitsInput, membersInput, factorInput].forEach(input => {
+  input.addEventListener("input", calculateFootprint);
+});
+calculateFootprint();
+
+// Restore saved estimate
+try {
+  const saved = JSON.parse(localStorage.getItem("mira-impact-estimate"));
+  if (saved && Number.isFinite(saved.units)) {
+    unitsInput.value = saved.units;
+    membersInput.value = saved.members || 3;
+    factorInput.value = saved.factor || 0.675;
+    calculateFootprint();
+    document.getElementById("saveStatus").textContent =
+      "A previous estimate was restored from this browser.";
+  }
+} catch (e) {
+  console.warn("Saved estimate could not be read.");
+}
+
+document.getElementById("saveEstimate").addEventListener("click", () => {
+  try {
+    localStorage.setItem("mira-impact-estimate", JSON.stringify(currentEstimate));
+    document.getElementById("saveStatus").textContent =
+      "Your estimate has been saved on this device.";
+    toast("Your estimate is saved ✓");
+  } catch (e) {
+    toast("Browser storage is unavailable.");
+  }
+});
+
+// Community scenario calculator
+const homesInput = document.getElementById("homes");
+const averageInput = document.getElementById("averageKwh");
+const communityTotal = document.getElementById("communityTotal");
+const chart = document.getElementById("communityChart");
+const chartCtx = chart.getContext("2d");
+
+function drawCommunityChart(total, homes) {
+  const rect = chart.getBoundingClientRect();
+  const dpr = Math.min(devicePixelRatio || 1, 2);
+  chart.width = rect.width * dpr;
+  chart.height = 240 * dpr;
+  chartCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+  const w = rect.width;
+  const h = 240;
+  chartCtx.clearRect(0, 0, w, h);
+
+  const maxValue = Math.max(total, 1);
+  const barW = Math.min(65, w / 5);
+  const gap = Math.min(35, w / 8);
+  const values = [
+    total * .25,
+    total * .50,
+    total * .75,
+    total
+  ];
+
+  chartCtx.strokeStyle = "rgba(220,255,230,.12)";
+  chartCtx.lineWidth = 1;
+
+  for (let i = 0; i < 4; i++) {
+    const y = 25 + i * 45;
+    chartCtx.beginPath();
+    chartCtx.moveTo(15, y);
+    chartCtx.lineTo(w - 10, y);
+    chartCtx.stroke();
+  }
+
+  values.forEach((value, i) => {
+    const x = 25 + i * (barW + gap);
+    const height = Math.max(3, value / maxValue * 145);
+    const y = 190 - height;
+
+    const gradient = chartCtx.createLinearGradient(0, y, 0, 190);
+    gradient.addColorStop(0, "#d7ff73");
+    gradient.addColorStop(1, "#4da779");
+
+    chartCtx.fillStyle = gradient;
+    chartCtx.fillRect(x, y, barW, height);
+
+    chartCtx.fillStyle = "#9aada3";
+    chartCtx.font = "10px DM Mono";
+    chartCtx.fillText(["25%","50%","75%","100%"][i], x, 210);
+  });
+
+  chartCtx.fillStyle = "#d7ff73";
+  chartCtx.font = "11px DM Mono";
+  chartCtx.fillText("SCENARIO SCALE", 15, 235);
+}
+
+function calculateCommunity() {
+  const homes = Math.max(1, Math.min(1000000, Number(homesInput.value) || 1));
+  const average = Math.max(0, Math.min(10000, Number(averageInput.value) || 0));
+  const factor = Math.max(0, Number(factorInput.value) || .675);
+  const tonnes = homes * average * factor / 1000;
+
+  communityTotal.textContent = tonnes.toLocaleString("en-IN", {
+    maximumFractionDigits: 2,
+    minimumFractionDigits: 2
+  });
+
+  drawCommunityChart(tonnes, homes);
+}
+
+[homesInput, averageInput, factorInput].forEach(input => {
+  input.addEventListener("input", calculateCommunity);
+});
+calculateCommunity();
+window.addEventListener("resize", calculateCommunity);
+
+// Action checklist
+const missionInputs = [...document.querySelectorAll("[data-mission]")];
+const missionKey = "mira-impact-missions-v1";
+
+function loadMissions() {
+  try {
+    return JSON.parse(localStorage.getItem(missionKey)) || {};
+  } catch {
+    return {};
+  }
+}
+
+function updateMissions() {
+  const state = {};
+  missionInputs.forEach(input => {
+    state[input.dataset.mission] = input.checked;
+    input.closest(".mission").classList.toggle("done", input.checked);
+  });
+
+  try {
+    localStorage.setItem(missionKey, JSON.stringify(state));
+  } catch (e) {
+    console.warn("Could not save mission progress.");
+  }
+
+  const completed = missionInputs.filter(input => input.checked).length;
+  const percent = completed / missionInputs.length * 100;
+
+  document.getElementById("missionCount").textContent =
+    completed + "/" + missionInputs.length;
+
+  document.getElementById("progressRing").style.background =
+    `conic-gradient(var(--lime) ${percent * 3.6}deg, #284237 0deg)`;
+
+  document.getElementById("missionMessage").textContent =
+    completed === missionInputs.length
+      ? "Every listed action is checked. Keep these habits going!"
+      : completed + " actions completed. One step at a time.";
+}
+
+const previousMissions = loadMissions();
+missionInputs.forEach(input => {
+  input.checked = Boolean(previousMissions[input.dataset.mission]);
+  input.addEventListener("change", updateMissions);
+});
+updateMissions();
+
+document.getElementById("resetMissions").addEventListener("click", () => {
+  missionInputs.forEach(input => input.checked = false);
+  updateMissions();
+  toast("Checklist reset");
+});
+</script>
+</body>
+</html>
